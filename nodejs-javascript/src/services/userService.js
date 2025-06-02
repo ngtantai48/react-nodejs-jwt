@@ -52,6 +52,7 @@ const handleLoginService = async (email, password) => {
                     }
                 )
                 return {
+                    EC: 0,
                     access_token,
                     user: {
                         email: user.email,

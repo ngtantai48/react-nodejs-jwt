@@ -20,7 +20,7 @@ const Header = () => {
             key: 'SubMenu',
             icon: <SettingTwoTone />,
             children: [
-                { label: 'Đăng nhập', key: 'login' },
+                { label: <Link to={'/login'}>Đăng nhập</Link>, key: 'login' },
                 { label: 'Đăng xuất', key: 'logout' },
             ],
         },
