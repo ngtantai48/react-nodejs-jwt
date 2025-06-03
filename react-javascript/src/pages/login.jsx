@@ -2,18 +2,28 @@ import '@ant-design/v5-patch-for-react-19';
 import { Button, Form, Input, notification } from 'antd';
 import { loginApi } from '../utils/api';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../components/context/auth.context';
 
 const LoginPage = () => {
     const navigate = useNavigate();
+    const { setAuth } = useContext(AuthContext);
 
     const onFinish = async (values) => {
         const { email, password } = values;
         const res = await loginApi(email, password);
-        if (res && res.EC == 0) {
+        if (res && res.EC === 0) {
             localStorage.setItem("access_token", res.access_token)
             notification.success({
                 message: "Đăng nhập thành công",
                 // description: "Success"
+            });
+            setAuth({
+                isAuthenticated: true,
+                user: {
+                    email: res?.user?.email ?? "",
+                    name: res?.user?.name ?? "",
+                }
             });
             navigate("/")
         } else {

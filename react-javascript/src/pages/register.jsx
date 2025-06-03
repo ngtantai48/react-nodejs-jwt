@@ -10,7 +10,7 @@ const RegisterPage = () => {
         const { name, email, password } = values;
         const res = await createUserApi(name, email, password);
 
-        if (res && res.EC == 1) {
+        if (res && res.EC === 1) {
             notification.error({
                 message: "Đăng ký tài khoản thất bại!",
                 description: res?.EM ?? "Error"
