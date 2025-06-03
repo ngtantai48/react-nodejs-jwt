@@ -10,17 +10,17 @@ const RegisterPage = () => {
         const { name, email, password } = values;
         const res = await createUserApi(name, email, password);
 
-        if (res) {
+        if (res && res.EC === 1) {
+            notification.error({
+                message: "Đăng ký tài khoản thất bại!",
+                description: res?.EM ?? "Error"
+            })
+        } else {
             notification.success({
-                message: "CREATE USER",
-                description: "Success"
+                message: "Đăng ký tài khoản thành công!",
+                description: "Hãy đăng nhập"
             })
             navigate("/login")
-        } else {
-            notification.error({
-                message: "CREATE USER",
-                description: "Error"
-            })
         }
     };
 
@@ -38,7 +38,7 @@ const RegisterPage = () => {
                 <Form.Item
                     label="Name"
                     name="name"
-                    rules={[{ required: true, message: 'Please input your name!' }]}
+                    rules={[{ required: true, message: 'Vui lòng nhập tên của bạn!' }]}
                 >
                     <Input />
                 </Form.Item>
@@ -46,7 +46,7 @@ const RegisterPage = () => {
                 <Form.Item
                     label="Email"
                     name="email"
-                    rules={[{ required: true, message: 'Please input your email!' }]}
+                    rules={[{ required: true, message: 'Vui lòng nhập email của bạn!' }]}
                 >
                     <Input />
                 </Form.Item>
@@ -54,14 +54,14 @@ const RegisterPage = () => {
                 <Form.Item
                     label="Password"
                     name="password"
-                    rules={[{ required: true, message: 'Please input your password!' }]}
+                    rules={[{ required: true, message: 'Vui lòng nhập mật khẩu của bạn!' }]}
                 >
                     <Input.Password />
                 </Form.Item>
 
                 <Form.Item>
                     <Button type="primary" htmlType="submit">
-                        Submit
+                        Đăng ký
                     </Button>
                 </Form.Item>
             </Form>
