@@ -7,17 +7,26 @@ const saltRounds = 10;
 
 const createUserService = async (name, email, password) => {
     try {
-        // hash user password
-        const hashPassword = await bcrypt.hash(password, saltRounds);
-        // save user to db
-        let result = await User.create({
-            name: name,
-            email: email,
-            password: hashPassword,
-            role: 1
-        })
-        return result;
-
+        // check user exist
+        const userEmail = await User.findOne({email: email});
+        
+        if(userEmail){ 
+            return {
+                EC: 1,
+                EM: `Email ${email} đã tồn tại, vui lòng nhập email khác!`
+            }
+        } else {
+            // hash user password
+            const hashPassword = await bcrypt.hash(password, saltRounds);
+            // save user to db
+            let result = await User.create({
+                name: name,
+                email: email,
+                password: hashPassword,
+                role: 1
+            })
+            return result;
+        }
     } catch (error) {
         console.log(error);
         return null;
@@ -27,9 +36,8 @@ const createUserService = async (name, email, password) => {
 const handleLoginService = async (email, password) => {
     try {
         // fetch user by email
-        const user = await User.findOne({
-            email: email
-        })
+        const user = await User.findOne({email: email})
+
         if(user){
             //compare password
             const isMatchPassword = await bcrypt.compare(password, user.password)
@@ -73,7 +81,19 @@ const handleLoginService = async (email, password) => {
     }
 }
 
+const getUserService = async () => {
+    try {
+        let result = await User.find({}).select("-password");
+        return result;
+
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}
+
 module.exports = {
     createUserService,
-    handleLoginService
+    handleLoginService,
+    getUserService
 }

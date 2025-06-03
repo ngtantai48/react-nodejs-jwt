@@ -6,17 +6,17 @@ import { Menu } from 'antd';
 const Header = () => {
     const items = [
         {
-            label: <Link to={`/`}>Home Page</Link>,
+            label: <Link to={`/`}>Trang chủ</Link>,
             key: 'home',
             icon: <HomeTwoTone />
         },
         {
-            label: <Link to={`/user`}>Users</Link>,
+            label: <Link to={`/user`}>Danh sách người dùng</Link>,
             key: 'user',
             icon: <IdcardTwoTone />,
         },
         {
-            label: 'Welcome Nguyen Tan Tai',
+            label: 'Xin chào Nguyen Tan Tai',
             key: 'SubMenu',
             icon: <SettingTwoTone />,
             children: [
