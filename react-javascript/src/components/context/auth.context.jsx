@@ -5,7 +5,8 @@ export const AuthContext = createContext({
     user: {
         email: "",
         name: ""
-    }
+    },
+    appLoading: true
 });
 
 export const AuthWrapper = (props) => {
@@ -14,12 +15,14 @@ export const AuthWrapper = (props) => {
         user: {
             email: "",
             name: ""
-        }
+        },
     });
+
+    const [appLoading, setAppLoading] = useState(true)
     // ...
     return (
         <AuthContext value={{
-            auth, setAuth
+            auth, setAuth, appLoading, setAppLoading
         }}>
             {props.children}
         </AuthContext>
