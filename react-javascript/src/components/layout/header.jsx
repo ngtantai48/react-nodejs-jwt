@@ -23,7 +23,7 @@ const Header = () => {
             }
         ] : []),
         {
-            label: `Xin chào ${auth?.user?.name}`,
+            label: `Xin chào ${auth?.user?.name ?? ""}`,
             key: 'SubMenu',
             icon: <SettingTwoTone />,
             children: [

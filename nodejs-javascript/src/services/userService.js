@@ -23,7 +23,7 @@ const createUserService = async (name, email, password) => {
                 name: name,
                 email: email,
                 password: hashPassword,
-                role: 1
+                role: 'user'
             })
             return result;
         }
